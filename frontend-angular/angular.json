@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "interface-angular": {
+    "frontend-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/interface-angular",
+            "outputPath": "dist/frontend-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,7 +25,6 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -61,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "interface-angular:build:production"
+              "browserTarget": "frontend-angular:build:production"
             },
             "development": {
-              "browserTarget": "interface-angular:build:development"
+              "browserTarget": "frontend-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "interface-angular:build"
+            "browserTarget": "frontend-angular:build"
           }
         },
         "test": {
@@ -88,7 +87,6 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -96,8 +94,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "ec0bafa9-7bf2-48b3-9376-756177449d23"
   }
 }
