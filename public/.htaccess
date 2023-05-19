@@ -2,6 +2,9 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
+    <IfModule mime_module>
+        AddHandler application/x-httpd-php56 .php .php5 .phtml
+    </IfModule>
 
     RewriteEngine On
 

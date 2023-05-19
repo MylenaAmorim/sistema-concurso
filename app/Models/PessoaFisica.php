@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
 class PessoaFisica extends Model
 {
@@ -17,7 +18,8 @@ class PessoaFisica extends Model
 	];
 	
     public static function createPessoaFisica(PessoaFisica $pessoa){
-    	return $pessoa->save();
+		$pessoa->save();
+    	return PessoaFisica::select('id')->latest()->first();
     }
     
     public static function updatePessoaFisica(PessoaFisica $pessoa){

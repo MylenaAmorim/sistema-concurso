@@ -14,21 +14,31 @@ class InscricaoController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate(
-            $request,
-            [
-			    'pessoa_fisica_id' => 'required',
-			    'cargo' => 'required',
-			    'situacao' => 'required'
-            ]
-        );
-        
-	    $inscricao = new Inscricao();
-	    $inscricao->pessoa_fisica_id = $request->pessoa_fisica_id;
-	    $inscricao->cargo = $request->cargo;
-	    $inscricao->situacao = $request->situacao;
-	    
-        return json_encode(Inscricao::createInscricao($inscricao));
+        try {
+            $this->validate(
+                $request,
+                [
+                    'pessoa_fisica_id' => 'required',
+                    'cargo' => 'required',
+                    'situacao' => 'required'
+                ]
+            );
+            
+            $inscricao = new Inscricao();
+            $inscricao->pessoa_fisica_id = $request->pessoa_fisica_id;
+            $inscricao->cargo = $request->cargo;
+            $inscricao->situacao = $request->situacao;
+
+            $inscricao = Inscricao::createInscricao($inscricao);
+
+            if ($inscricao) {
+                return response()->json(['message' => "Incrição realizada com sucesso", 'error' => false], 201);
+            } else {
+                return response()->json(['message' => $e->getMessage(), 'error' => true], 400);
+            }
+        } catch(Exception $e) {
+            return response()->json(['message' => $e->getMessage(), 'error' => true], 400);
+        }
     }
     
     public function update(Request $request)
@@ -78,6 +88,14 @@ class InscricaoController extends Controller
         $inscricao = Inscricao::find($id);
 	    
         return json_encode(Inscricao::deleteInscricao($inscricao));
+    }
+
+    public function verificarPessoaInscrita(Request $request, $id)
+    {
+        $inscricao = Inscricao::where('pessoa_fisica_id', $id)->first();
+	    $inscricao = $inscricao ? true : false;
+        
+        return json_encode($inscricao);
     }
 
 }
