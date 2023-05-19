@@ -1,0 +1,86 @@
+<app-header-menu class="not-print"></app-header-menu>
+<div class="container-complet">
+    <div class="form-container">
+        <form class="" [formGroup]="checkoutForm" (ngSubmit)="onSubmitApplication()">
+            <div>
+                <div *ngIf="getMessage && getErrorRequest == true" class="alert alert-error alert-danger fade show" role="alert">
+                    <strong>Error!</strong> {{ getMessage }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div *ngIf="getMessage && getErrorRequest == false" class="alert alert-error alert-success fade show" role="alert">
+                    <strong>Sucesso!</strong> {{ getMessage }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="tilte-contest form-row col-md-12">
+                SOCIEDADE BRASILEIRA DE PNEUMOLOGIA E TISIOLOGIA - SBPT
+            </div>
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-6" style="height: 80px;">
+                    <label for="name">* Nome Completo</label>
+                    <input type="text" class="form-control" (keypress)="errorMsg=onKeypressEvent($event)" id="name"
+                        formControlName="name" placeholder="nome completo">
+                    <span *ngIf="checkoutForm.controls.name.errors">Campo obrigatório</span>
+                    <span *ngIf="!checkoutForm.controls.name.errors && errorMsg" class="errorMsg">{{errorMsg}}</span>
+                </div>
+
+                <div class="form-group col-md-6" style="height: 80px;">
+                    <label for="cpf">* CPF</label>
+                    <input type="text" maxlength="14" (keypress)="formatCPF($event)" class="form-control" id="cpf"
+                        formControlName="cpf" placeholder="cpf">
+                    <span *ngIf="checkoutForm.controls.cpf.errors">Campo obrigatório</span>
+                </div>
+            </div>
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-12" style="height: 80px;">
+                    <label for="address">* Endereço</label>
+                    <input type="text" class="form-control" id="address" formControlName="address"
+                        placeholder="endereço">
+                    <span *ngIf="checkoutForm.controls.address.errors">Campo obrigatório</span>
+                </div>
+            </div>
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-6" style="height: 80px;">
+                    <label for="state">* Estado</label>
+                    <select id="state" formControlName="state" class="form-control"
+                        (ngModelChange)="onChangeState($event)">
+                        <option [ngValue]="0" selected>Selecione</option>
+                        <option *ngFor="let state of states" [ngValue]="state.estado_id">{{ state.nome }}</option>
+                    </select>
+                    <span *ngIf="checkoutForm.controls.state.errors || checkoutForm.controls.state.value == 0">Campo
+                        obrigatório</span>
+                </div>
+                <div class="form-group col-md-6" style="height: 80px;">
+                    <label for="city">* Cidade</label>
+                    <select id="city" formControlName="city" class="form-control">
+                        <option *ngIf="stateSelected && stateSelected != 0" value="0">Selecione</option>
+                        <option *ngIf="!stateSelected || stateSelected == 0">Selecione um estado</option>
+                        <option *ngFor="let city of citys" [ngValue]="city.cidade_id">{{ city.nome }}</option>
+                    </select>
+                    <span *ngIf="checkoutForm.controls.city.errors || checkoutForm.controls.city.value == 0">Campo
+                        obrigatório</span>
+                </div>
+            </div>
+            <div class="form-group col-md-6" style="height: 80px;">
+                <label for="office">* Cargo</label>
+                <input type="text" class="form-control" id="office" formControlName="office" placeholder="cargo">
+                <span *ngIf="checkoutForm.controls.office.errors">Campo obrigatório</span>
+            </div>
+
+            <span style="color: black; font-size: 10px;" class="form-group col-md-12">*Todos os campos são
+                obrigatórios</span>
+
+            <div class="form-group col-md-12 row d-flex justify-content-center">
+                <button *ngIf="!btnVisibledPrint" type="submit" class="btn btn-primary btn-save" [disabled]="!checkoutForm.valid">Salvar
+                    Alterações</button>
+
+                <button type="button" *ngIf="btnVisibledPrint" onclick="print()" class="btn not-print btn-primary btn-save btn-print"><i class="fa fa-print" aria-hidden="true"></i> Imprimir Comprovante</button>
+            </div>
+        </form>
+    </div>
+</div>
