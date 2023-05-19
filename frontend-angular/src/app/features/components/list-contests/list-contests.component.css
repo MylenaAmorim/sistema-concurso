@@ -1,0 +1,52 @@
+.container-complet {
+    height: 100%;
+}
+
+.list {
+    display: flex;
+    justify-content: center;
+    margin-left: 14%;
+}
+
+.list-group {
+    margin-top: 2rem;
+}
+
+.list-group-item {
+    border-left: 5px solid #f0b21e;
+    background: #FFFFFF;
+    padding: 1rem !important;
+    
+    
+    margin-top: 1.5rem;
+}
+
+.register {
+    margin-top: 2.4rem;
+    margin-left: 2%;
+}
+
+.col {
+    padding-right: 0;
+}
+
+ul {
+    width: 80% !important;
+}
+
+.btn-info {
+    margin-top: 1rem;
+}
+
+a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.logout {
+    float: right;
+    color: #f0b21e;
+    font-size: 1.5rem;
+    margin-top: 1.2rem;
+    margin-right: 2rem;
+}
